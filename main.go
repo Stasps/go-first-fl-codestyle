@@ -1,3 +1,6 @@
+// Package main реализует игровой симулятор тренировки персонажа в ролевой игре.
+// Программа позволяет пользователю выбрать класс персонажа (воитель, маг, лекарь),
+// ввести имя и тренировать боевые навыки, включая атаку, защиту и специальные умения.
 package main
 
 import (
@@ -6,41 +9,41 @@ import (
 	"strings"
 )
 
-// randint возвращает случайное целое число в диапазоне от min до max
-func randint(min, max int) int {
+// Randint возвращает случайное целое число в диапазоне от min до max.
+func Randint(min, max int) int {
 	return rand.Intn(max-min+1) + min
 }
 
-// attack возвращает сообщение о нанесённом уроне в зависимости от класса персонажа.
-func attack(charName, charClass string) string {
+// Attack возвращает сообщение о нанесённом уроне в зависимости от класса персонажа.
+func Attack(charName, charClass string) string {
 	switch charClass {
 	case "warrior":
-		return fmt.Sprintf("%s нанес урон противнику равный %d.", charName, 5+randint(3, 5))
+		return fmt.Sprintf("%s нанес урон противнику равный %d.", charName, 5+Randint(3, 5))
 	case "mage":
-		return fmt.Sprintf("%s нанес урон противнику равный %d.", charName, 5+randint(5, 10))
+		return fmt.Sprintf("%s нанес урон противнику равный %d.", charName, 5+Randint(5, 10))
 	case "healer":
-		return fmt.Sprintf("%s нанес урон противнику равный %d.", charName, 5+randint(-3, -1))
+		return fmt.Sprintf("%s нанес урон противнику равный %d.", charName, 5+Randint(-3, -1))
 	default:
 		return "неизвестный класс персонажа"
 	}
 }
 
-// defence возвращает сообщение о заблокированном уроне в зависимости от класса персонажа.
-func defence(charName, charClass string) string {
+// Defence возвращает сообщение о заблокированном уроне в зависимости от класса персонажа.
+func Defence(charName, charClass string) string {
 	switch charClass {
 	case "warrior":
-		return fmt.Sprintf("%s блокировал %d урона.", charName, 10+randint(5, 10))
+		return fmt.Sprintf("%s блокировал %d урона.", charName, 10+Randint(5, 10))
 	case "mage":
-		return fmt.Sprintf("%s блокировал %d урона.", charName, 10+randint(-2, 2))
+		return fmt.Sprintf("%s блокировал %d урона.", charName, 10+Randint(-2, 2))
 	case "healer":
-		return fmt.Sprintf("%s блокировал %d урона.", charName, 10+randint(2, 5))
+		return fmt.Sprintf("%s блокировал %d урона.", charName, 10+Randint(2, 5))
 	default:
 		return "неизвестный класс персонажа"
 	}
 }
 
-// special возвращает сообщение о применении специального умения в зависимости от класса.
-func special(charName, charClass string) string {
+// Special возвращает сообщение о применении специального умения в зависимости от класса.
+func Special(charName, charClass string) string {
 	switch charClass {
 	case "warrior":
 		return fmt.Sprintf("%s применил специальное умение `Выносливость %d`", charName, 105)
@@ -53,10 +56,10 @@ func special(charName, charClass string) string {
 	}
 }
 
-// startTraining выводит приветственное сообщение в зависимости от класса,
+// StartTraining выводит приветственное сообщение в зависимости от класса,
 // а затем запускает цикл тренировки. Пользователь может вводить команды:
 // attack, defence, special, skip. Цикл продолжается до ввода команды skip.
-func startTraining(charName, charClass string) string {
+func StartTraining(charName, charClass string) string {
 	// Приветствие в зависимости от класса
 	switch charClass {
 	case "warrior":
@@ -84,20 +87,20 @@ func startTraining(charName, charClass string) string {
 
 		switch cmd {
 		case "attack":
-			fmt.Println(attack(charName, charClass))
+			fmt.Println(Attack(charName, charClass))
 		case "defence":
-			fmt.Println(defence(charName, charClass))
+			fmt.Println(Defence(charName, charClass))
 		case "special":
-			fmt.Println(special(charName, charClass))
+			fmt.Println(Special(charName, charClass))
 		}
 	}
 
 	return "тренировка окончена"
 }
 
-// chooseCharacterClass предлагает пользователю выбрать класс персонажа,
+// ChooseCharacterClass предлагает пользователю выбрать класс персонажа,
 // показывает описание выбранного класса и запрашивает подтверждение.
-func chooseCharacterClass() string {
+func ChooseCharacterClass() string {
 	var confirm string
 	var charClass string
 
@@ -105,7 +108,7 @@ func chooseCharacterClass() string {
 		fmt.Print("Введи название персонажа, за которого хочешь играть: Воитель — warrior, Маг — mage, Лекарь — healer: ")
 		if _, err := fmt.Scanf("%s\n", &charClass); err != nil {
 			fmt.Println("Ошибка ввода:", err)
-			return "" // возвращаем пустую строку при ошибке
+			return ""
 		}
 
 		// Описание выбранного класса
@@ -129,7 +132,7 @@ func chooseCharacterClass() string {
 	return charClass
 }
 
-// main запускает игровой процесс: приветствие, ввод имени, выбор класса, тренировку.
+// Main запускает игровой процесс: приветствие, ввод имени, выбор класса, тренировку.
 func main() {
 	fmt.Println("Приветствую тебя, искатель приключений!")
 	fmt.Println("Прежде чем начать игру...")
@@ -146,6 +149,6 @@ func main() {
 	fmt.Println("Ты можешь выбрать один из трёх путей силы:")
 	fmt.Println("Воитель, Маг, Лекарь")
 
-	charClass := chooseCharacterClass()
-	fmt.Println(startTraining(charName, charClass))
+	charClass := ChooseCharacterClass()
+	fmt.Println(StartTraining(charName, charClass))
 }

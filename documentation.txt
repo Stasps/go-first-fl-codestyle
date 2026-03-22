@@ -1,0 +1,31 @@
+Package main реализует игровой симулятор тренировки персонажа в ролевой игре.
+Программа позволяет пользователю выбрать класс персонажа (воитель, маг, лекарь),
+ввести имя и тренировать боевые навыки, включая атаку, защиту и специальные
+умения.
+
+FUNCTIONS
+
+func Attack(charName, charClass string) string
+    Attack возвращает сообщение о нанесённом уроне в зависимости от класса
+    персонажа.
+
+func ChooseCharacterClass() string
+    ChooseCharacterClass предлагает пользователю выбрать класс персонажа,
+    показывает описание выбранного класса и запрашивает подтверждение.
+
+func Defence(charName, charClass string) string
+    Defence возвращает сообщение о заблокированном уроне в зависимости от класса
+    персонажа.
+
+func Randint(min, max int) int
+    Randint возвращает случайное целое число в диапазоне от min до max.
+
+func Special(charName, charClass string) string
+    Special возвращает сообщение о применении специального умения в зависимости
+    от класса.
+
+func StartTraining(charName, charClass string) string
+    StartTraining выводит приветственное сообщение в зависимости от класса,
+    а затем запускает цикл тренировки. Пользователь может вводить команды:
+    attack, defence, special, skip. Цикл продолжается до ввода команды skip.
+
